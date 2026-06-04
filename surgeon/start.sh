@@ -13,9 +13,9 @@ if [ -z "$PY" ]; then
 fi
 [ -n "$PY" ] || { echo "Python 3.11+ required (python.org)"; exit 1; }
 
-[ -d venv ] || "$PY" -m venv venv
-./venv/bin/pip install -q --upgrade pip >/dev/null
-./venv/bin/pip install -q -r requirements.txt
+./venv/bin/python -c "" 2>/dev/null || { rm -rf venv; "$PY" -m venv venv; }
+./venv/bin/pip install -q --no-cache-dir --upgrade pip >/dev/null
+./venv/bin/pip install -q --no-cache-dir -r requirements.txt
 
 echo "Brain Surgeon sidecar - http://localhost:${SURGEON_PORT:-7072}"
 echo "   operating on: ${BRAINSTEM_AGENTS:-$HOME/.brainstem/src/rapp_brainstem/agents}"

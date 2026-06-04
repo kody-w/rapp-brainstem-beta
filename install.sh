@@ -52,9 +52,11 @@ fi
 echo "- installing the beta brainstem engine"
 rm -rf "$SRC"; mkdir -p "$SRC/agents"
 cp -R "$REPO_DIR/brainstem/." "$SRC/"
-[ -f "$BETA_HOME/venv/bin/python" ] || "$PY" -m venv "$BETA_HOME/venv"
-"$BETA_HOME/venv/bin/pip" install -q --upgrade pip >/dev/null
-"$BETA_HOME/venv/bin/pip" install -q -r "$SRC/requirements.txt"
+# Recreate the venv if it's missing OR broken (a dangling symlink passes -f but won't run).
+"$BETA_HOME/venv/bin/python" -c "" 2>/dev/null || { rm -rf "$BETA_HOME/venv"; "$PY" -m venv "$BETA_HOME/venv"; }
+# --no-cache-dir dodges a corrupt pip HTTP cache ("Cache entry deserialization failed" -> OSError).
+"$BETA_HOME/venv/bin/pip" install -q --no-cache-dir --upgrade pip >/dev/null
+"$BETA_HOME/venv/bin/pip" install -q --no-cache-dir -r "$SRC/requirements.txt"
 [ -f "$SRC/.env" ] || { [ -f "$SRC/.env.example" ] && cp "$SRC/.env.example" "$SRC/.env"; } || true
 
 # ── 3. RESTORE your state ─────────────────────────────────────────────────────
@@ -71,9 +73,9 @@ fi
 echo "- installing the brain surgeon sidecar"
 rm -rf "$SURGEON_HOME"; mkdir -p "$SURGEON_HOME"
 cp -R "$REPO_DIR/surgeon/." "$SURGEON_HOME/"
-[ -f "$SURGEON_HOME/venv/bin/python" ] || "$PY" -m venv "$SURGEON_HOME/venv"
-"$SURGEON_HOME/venv/bin/pip" install -q --upgrade pip >/dev/null
-"$SURGEON_HOME/venv/bin/pip" install -q -r "$SURGEON_HOME/requirements.txt"
+"$SURGEON_HOME/venv/bin/python" -c "" 2>/dev/null || { rm -rf "$SURGEON_HOME/venv"; "$PY" -m venv "$SURGEON_HOME/venv"; }
+"$SURGEON_HOME/venv/bin/pip" install -q --no-cache-dir --upgrade pip >/dev/null
+"$SURGEON_HOME/venv/bin/pip" install -q --no-cache-dir -r "$SURGEON_HOME/requirements.txt"
 
 # ── 5. one-command launcher (brainstem must run from its own dir) ─────────────
 cat > "$BETA_HOME/start-all.sh" <<LAUNCH
