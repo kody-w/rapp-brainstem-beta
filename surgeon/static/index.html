@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🔪 Brain Surgeon</title>
+<title>Brain Surgeon</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -41,7 +41,7 @@
 <body>
   <header>
     <span class="dot" id="dot"></span>
-    <span class="title">🔪 Brain Surgeon</span>
+    <span class="title"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><path d="M4 20 L11.5 12.5"/><path d="M11.5 12.5 L19 5 a1.8 1.8 0 0 0 -2.5 -2.5 L9 10 Z" fill="currentColor" stroke="none"/></svg>Brain Surgeon</span>
     <span class="ctx" id="ctx">connecting…</span>
   </header>
   <div id="log">
@@ -102,17 +102,17 @@
         endTurn(); scroll();
         break;
       case 'tool':
-        log.appendChild(el('tool', '● ' + (d.phase === 'start' ? '' : '✓ ') + (d.name || 'tool')));
+        log.appendChild(el('tool', (d.phase === 'start' ? 'running: ' : 'done: ') + (d.name || 'tool')));
         scroll(); break;
       case 'grail_blocked':
-        log.appendChild(el('grail', '🛑 Grail protected — refused: ' + (d.detail || '') ));
+        log.appendChild(el('grail', 'Grail protected — refused: ' + (d.detail || '') ));
         scroll(); break;
       case 'file_changed':
-        log.appendChild(el('tool', '✎ cartridge changed')); scroll(); break;
+        log.appendChild(el('tool', 'cartridge changed')); scroll(); break;
       case 'idle':
-        endTurn(); log.appendChild(el('idle', '— ready —')); scroll(); break;
+        endTurn(); log.appendChild(el('idle', 'ready')); scroll(); break;
       case 'error':
-        log.appendChild(el('grail', '⚠️ ' + (d.detail || 'error'))); scroll(); break;
+        log.appendChild(el('grail', 'Error: ' + (d.detail || 'error'))); scroll(); break;
     }
   };
 
@@ -125,7 +125,7 @@
       await fetch('/send', { method: 'POST', headers: { 'Content-Type': 'application/json' },
                              body: JSON.stringify({ prompt: text }) });
     } catch (err) {
-      log.appendChild(el('grail', '⚠️ could not reach the surgeon: ' + err.message)); scroll();
+      log.appendChild(el('grail', 'Could not reach the surgeon: ' + err.message)); scroll();
     }
   }
   input.addEventListener('keydown', (e) => {

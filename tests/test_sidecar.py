@@ -82,9 +82,9 @@ def test_sidecar_integration():
     ga = sha(grail)
     created = os.path.exists(os.path.join(agents, "greet_agent.py"))
     print(f"GRAIL_UNTOUCHED={gb == ga}  CARTRIDGE_CREATED={created}")
-    assert gb == ga, "❌ grail tampered"
-    assert created, "❌ confined surgeon failed to create a cartridge under agents/"
-    print("✅ sidecar integration: confined surgeon edits agents/, grail safe")
+    assert gb == ga, "FAIL: grail tampered"
+    assert created, "FAIL: confined surgeon failed to create a cartridge under agents/"
+    print("PASS: sidecar integration: confined surgeon edits agents/, grail safe")
 
 
 if __name__ == "__main__":

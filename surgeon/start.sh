@@ -17,7 +17,7 @@ fi
 ./venv/bin/pip install -q --upgrade pip >/dev/null
 ./venv/bin/pip install -q -r requirements.txt
 
-echo "🔪 Brain Surgeon sidecar → http://localhost:${SURGEON_PORT:-7072}"
+echo "Brain Surgeon sidecar - http://localhost:${SURGEON_PORT:-7072}"
 echo "   operating on: ${BRAINSTEM_AGENTS:-$HOME/.brainstem/src/rapp_brainstem/agents}"
 echo "   grail (brainstem.py) is OS-confined and off-limits."
 exec ./venv/bin/python surgeon.py

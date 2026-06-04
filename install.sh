@@ -21,7 +21,7 @@ elif [ -f "${BASH_SOURCE[0]:-}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/brains
   REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 else
   REPO_DIR="$HOME/.rapp-brainstem-beta"
-  echo "📥 Fetching the beta…"
+  echo "Fetching the beta…"
   if [ -d "$REPO_DIR/.git" ]; then git -C "$REPO_DIR" fetch -q origin beta && git -C "$REPO_DIR" reset -q --hard origin/beta
   else git clone -q --branch beta https://github.com/kody-w/rapp-brainstem-beta.git "$REPO_DIR"; fi
 fi
@@ -29,11 +29,11 @@ fi
 PY="$(command -v python3.11 || command -v python3.12 || command -v python3 || true)"
 [ -n "$PY" ] || { echo "Python 3.11+ required"; exit 1; }
 
-echo "🔪 RAPP Brainstem BETA → $BETA_HOME"
+echo "RAPP Brainstem BETA - $BETA_HOME"
 
 # ── 1. PRESERVE your local state ──────────────────────────────────────────────
 if [ -d "$SRC" ]; then
-  echo "→ backing up your local state to $BACKUP"
+  echo "- backing up your local state to $BACKUP"
   mkdir -p "$BACKUP/agents"
   for f in "$SRC"/agents/*_agent.py; do
     [ -f "$f" ] || continue
@@ -49,7 +49,7 @@ if [ -d "$SRC" ]; then
 fi
 
 # ── 2. FRESH brainstem from the beta bundle ───────────────────────────────────
-echo "→ installing the beta brainstem engine"
+echo "- installing the beta brainstem engine"
 rm -rf "$SRC"; mkdir -p "$SRC/agents"
 cp -R "$REPO_DIR/brainstem/." "$SRC/"
 [ -f "$BETA_HOME/venv/bin/python" ] || "$PY" -m venv "$BETA_HOME/venv"
@@ -59,7 +59,7 @@ cp -R "$REPO_DIR/brainstem/." "$SRC/"
 
 # ── 3. RESTORE your state ─────────────────────────────────────────────────────
 if [ -d "$BACKUP" ]; then
-  echo "→ restoring your custom agents + secrets + memory"
+  echo "- restoring your custom agents + secrets + memory"
   cp "$BACKUP"/agents/*.py "$SRC/agents/" 2>/dev/null || true
   for p in .env .copilot_token .copilot_session voice.json voice.zip; do
     [ -f "$BACKUP/$p" ] && cp "$BACKUP/$p" "$SRC/" || true
@@ -68,7 +68,7 @@ if [ -d "$BACKUP" ]; then
 fi
 
 # ── 4. BRAIN SURGEON sidecar ──────────────────────────────────────────────────
-echo "→ installing the brain surgeon sidecar"
+echo "- installing the brain surgeon sidecar"
 rm -rf "$SURGEON_HOME"; mkdir -p "$SURGEON_HOME"
 cp -R "$REPO_DIR/surgeon/." "$SURGEON_HOME/"
 [ -f "$SURGEON_HOME/venv/bin/python" ] || "$PY" -m venv "$SURGEON_HOME/venv"
@@ -89,11 +89,11 @@ chmod +x "$BETA_HOME/start-all.sh"
 
 cat <<EOF
 
-✅ Beta installed (old state preserved at: ${BACKUP:-none}; your agents are also in your private RAR).
+Beta installed (old state preserved at: ${BACKUP:-none}; your agents are also in your private RAR).
 
 Launch the patient + surgeon together:
    "$BETA_HOME/start-all.sh"
 
-Then open http://localhost:7071 and click the 🔪 scalpel beside the chat. The grail
+Then open http://localhost:7071 and click the scalpel beside the chat. The grail
 (brainstem.py) is OS-confined and cannot be touched. The stable production install was not used.
 EOF

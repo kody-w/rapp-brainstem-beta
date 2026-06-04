@@ -15,7 +15,7 @@ real time — while the brainstem (the *patient*) stays awake and answering. You
 
 | Mode | Who is the surgeon | How |
 |------|--------------------|-----|
-| **No-code (training)** | This sidecar (Copilot **SDK**) | Hit the **🔪 scalpel** in the brainstem UI → the surgeon pane expands beside the chat. No VS Code, no extra installs. |
+| **No-code (training)** | This sidecar (Copilot **SDK**) | Hit the **scalpel** in the brainstem UI - the surgeon pane expands beside the chat. No VS Code, no extra installs. |
 | **Advanced (VS Code)** | Your built-in VS Code Copilot | Surface the brainstem chat in VS Code; *don't* expand the scalpel — drive the surgery with the Copilot you already have. |
 
 Same pattern either way. The no-code view is for **training people on brain surgery** outside VS Code.
@@ -36,7 +36,7 @@ human-only act and never changes code.
  │ brainstem UI │──────────────│ surgeon.py          │──────────▶│ sandbox-exec        │
  │ localhost:7071│   iframe     │ Copilot SDK session │           │  └ copilot CLI      │
  │              │◀─ hot-reload ─│ working_dir=agents/ │           │   (confined to      │
- └──────────────┘   agents/    │ SSE stream → pane   │           │    agents/ writes)  │
+ └──────────────┘   agents/    │ SSE stream - pane   │           │    agents/ writes)  │
                                 └─────────────────────┘           └────────────────────┘
 ```
 

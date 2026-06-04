@@ -13,12 +13,13 @@
   var me = document.currentScript && document.currentScript.src || "";
   var SIDE = me.replace(/\/overlay\.js.*$/, "") || "http://localhost:7072";
 
-  // Flat scalpel icon (blade + handle) — NOT a brain (the brain is the brainstem itself).
+  // Flat scalpel icon (filled blade with a rounded spine + slim handle). No emoji.
   var SCALPEL =
-    '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" ' +
-    'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
-    '<path d="M14.5 3.5 L20.5 9.5 L11 12 Z" fill="currentColor" stroke="none"/>' +
-    '<path d="M11 12 L3.5 19.5"/><path d="M5.5 17.5 L7.5 19.5"/></svg>';
+    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M4 20 L11.5 12.5"/>' +
+    '<path d="M11.5 12.5 L19 5 a1.8 1.8 0 0 0 -2.5 -2.5 L9 10 Z" fill="currentColor" stroke="none"/>' +
+    '</svg>';
 
   function inject() {
     var controls = document.querySelector("header .controls") || document.querySelector(".controls");

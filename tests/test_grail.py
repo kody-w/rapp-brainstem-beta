@@ -53,7 +53,7 @@ def test_grail_confinement():
     _sandboxed(prof, f"echo X | tee -a '{grail}' >/dev/null 2>&1")
     assert "X" not in open(grail).read().replace("SECRET", ""), "tee grail write must be blocked"
 
-    print("✅ grail OS-confinement holds (agents/ writable; brainstem.py unwritable via shell, python, tee)")
+    print("PASS: grail OS-confinement holds (agents/ writable; brainstem.py unwritable via shell, python, tee)")
 
 
 if __name__ == "__main__":

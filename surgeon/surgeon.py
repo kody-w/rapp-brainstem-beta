@@ -106,7 +106,7 @@ class Surgeon:
         under agents/ (everything else in the brainstem — incl. brainstem.py — is denied),
         and the env that makes the SDK spawn the Copilot CLI through the sandbox wrapper.
         This is the grail guarantee: child shells inherit it, so there's no escape hatch.
-        Returns (env, ok). ok=False if confinement can't be established (→ refuse to operate)."""
+        Returns (env, ok). ok=False if confinement can't be established (- refuse to operate)."""
         import copilot, tempfile
         real_cli = os.path.join(os.path.dirname(copilot.__file__), "bin", "copilot")
         wrapper = str(HERE / "sandbox" / "copilot-sandboxed.sh")
@@ -125,7 +125,7 @@ class Surgeon:
         env, ok = self._sandbox_env()
         self.sandboxed = ok
         if not ok:
-            # FAIL-SAFE: the grail guarantee depends on OS confinement. No sandbox → no surgery.
+            # FAIL-SAFE: the grail guarantee depends on OS confinement. No sandbox - no surgery.
             raise RuntimeError(
                 "Refusing to operate: OS confinement (macOS sandbox-exec) could not be established, "
                 "so the grail (brainstem.py) can't be guaranteed safe. The surgeon only runs confined."
