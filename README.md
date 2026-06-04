@@ -49,11 +49,26 @@ human-only act and never changes code.
 ## Install (one-liner)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<owner>/rapp-brainstem-beta/beta/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/kody-w/rapp-brainstem-beta/beta/install.sh | bash
+```
+
+This is a **full brainstem beta build** — it installs the brainstem engine **and** the brain
+surgeon, and **preserves your local state**: your custom `agents/*_agent.py`, `.env`, Copilot
+tokens, and `.brainstem_data` are backed up (`~/.brainstem-backup-<ts>`) and restored — nothing
+is lost. The stable production install is not used. Then launch both:
+
+```bash
+~/.brainstem/start-all.sh     # patient on :7071  +  surgeon on :7072
 ```
 
 Python ≥3.11 only — `github-copilot-sdk` **bundles** the Copilot CLI (no separate install, no Node).
 Uses your existing GitHub Copilot auth.
+
+### Layout
+- `brainstem/` — the brainstem engine (server, default agents, `index.html` with the scalpel baked in)
+- `surgeon/` — the brain surgeon sidecar (Copilot SDK session, SSE pane, `sandbox/` confinement)
+- `tests/` — `test_grail.py` (deterministic OS-confinement) + `test_sidecar.py` (live confined surgery)
+- `install.sh` — full installer (engine + surgeon, state-preserving)
 
 ## Test cases (must pass before publish)
 
@@ -64,4 +79,7 @@ Uses your existing GitHub Copilot auth.
 4. **Scalpel wiring** — the brainstem `index.html` scalpel toggles the surgeon pane.
 
 ## Status
-Beta. The grail OS-confinement is the keystone and is verified by test #1.
+Beta — installable, switchable, tested. Sandbox install verified: a fresh brainstem boots and
+loads its agents + soul, the surgeon comes up sandboxed, the grail is OS-untouchable
+(`test_grail`), and a confined surgery edits a cartridge while `brainstem.py` stays byte-identical
+(`test_sidecar`).
