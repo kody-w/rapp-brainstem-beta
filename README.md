@@ -1,5 +1,9 @@
 # RAPP Brainstem — Brain Surgeon (beta)
 
+<!-- rapp1:network-header:start -->
+[![RAPP/1](https://kody-w.github.io/rapp-hive-public/portfolio/badges/rapp-brainstem-beta.svg)](https://github.com/kody-w/rapp-hive-public/blob/main/portfolio/repos/rapp-brainstem-beta.md) · **New to RAPP?** [Start here: get your Brainstem →](https://github.com/kody-w/rapp-installer#start-here)
+<!-- rapp1:network-header:end -->
+
 > **Beta channel.** New capability that lands here before the stable one-liner installer.
 > Like Clawpilot's *Beta updates* — newer, may have rough edges.
 
